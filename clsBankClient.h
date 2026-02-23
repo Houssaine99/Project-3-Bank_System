@@ -28,9 +28,86 @@ private:
 
 	}
 
+	static std::string _ConvertClientObjectToLine(clsBankClient Client, std::string Seperator = "#//#")
+	{
+		std::string ClientRecord;
+
+		ClientRecord += Client.FirstName + Seperator;
+		ClientRecord += Client.LastName + Seperator;
+		ClientRecord += Client.Email + Seperator;
+		ClientRecord += Client.Phone + Seperator;
+		ClientRecord += Client.AccountNumber() + Seperator;
+		ClientRecord += Client.PINCode + Seperator;
+		ClientRecord += std::to_string(Client.AccountBalance);
+
+		return ClientRecord;
+
+	}
+
 	static clsBankClient _GetEmptyClientObject()
 	{
 		return clsBankClient(enMode::EmptyMode, "", "", "", "", "", "", 0);
+	}
+
+	static std::vector <clsBankClient> _LoadClientsDataFromFile()
+	{
+		std::vector <clsBankClient> vClients;
+
+		std::fstream MyFile;
+
+		MyFile.open("Clients.txt", std::ios::in);
+
+		if (MyFile.is_open())
+		{
+			std::string Line;
+
+			while (std::getline(MyFile, Line))
+			{
+				clsBankClient Client = _ConvertLineToClientObject(Line);
+
+				vClients.push_back(Client);
+			}
+
+			MyFile.close();
+		}
+
+		return vClients;
+	}
+
+	static void _SaveClientsDataToFile(std::vector <clsBankClient> vClients)
+	{
+		std::fstream MyFile;
+
+		MyFile.open("Clients.txt", std::ios::out);
+
+		if (MyFile.is_open())
+		{
+			std::string DataLine;
+
+			for (clsBankClient& Client : vClients)
+			{
+				DataLine = _ConvertClientObjectToLine(Client);
+				MyFile << DataLine << std::endl;
+			}
+
+			MyFile.close();
+		}
+	}
+
+	void _Update()
+	{
+		std::vector <clsBankClient> _vClients = _LoadClientsDataFromFile();
+
+		for (clsBankClient& Client : _vClients)
+		{
+			if (Client.AccountNumber() == AccountNumber())
+			{
+				Client = *this;
+				break;
+			}
+		}
+
+		_SaveClientsDataToFile(_vClients);
 	}
 
 public:
@@ -50,7 +127,7 @@ public:
 		return (_Mode == enMode::EmptyMode);
 	}
 
-	std::string GetAccountNumber()
+	std::string AccountNumber()
 	{
 		return _AccountNumber;
 	}
@@ -110,7 +187,7 @@ public:
 			{
 				clsBankClient Client = _ConvertLineToClientObject(Line);
 
-				if (Client.GetAccountNumber() == AccountNumber)
+				if (Client.AccountNumber() == AccountNumber)
 				{
 					MyFile.close();
 					return Client;
@@ -138,7 +215,7 @@ public:
 			{
 				clsBankClient Client = _ConvertLineToClientObject(Line);
 
-				if (Client.GetAccountNumber() == AccountNumber && Client.PINCode == PINCode)
+				if (Client.AccountNumber() == AccountNumber && Client.PINCode == PINCode)
 				{
 					MyFile.close();
 					return Client;
@@ -158,5 +235,19 @@ public:
 		return (!Client.IsEmpty());
 	}
 
+	enum enSaveResults { svFaildEmptyObject = 0, svSucceeded = 1 };
+
+	enSaveResults Save()
+	{
+		 switch (_Mode)
+		 {
+		 case enMode::EmptyMode:
+			 return enSaveResults::svFaildEmptyObject;
+
+		 case enMode::UpdateMode:
+			 _Update();
+			 return enSaveResults::svSucceeded;
+		 }
+	}
 };
 
