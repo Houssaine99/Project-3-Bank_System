@@ -18,6 +18,7 @@ private:
 	std::string _AccountNumber;
 	std::string _PINCode;
 	float _AccountBalance;
+	bool _MarkForDelete = false;
 
 	static clsBankClient _ConvertLineToClientObject(std::string Line, std::string Seperator = "#//#")
 	{
@@ -86,8 +87,11 @@ private:
 
 			for (clsBankClient& Client : vClients)
 			{
-				DataLine = _ConvertClientObjectToLine(Client);
-				MyFile << DataLine << std::endl;
+				if (!Client._MarkForDelete)
+				{
+					DataLine = _ConvertClientObjectToLine(Client);
+					MyFile << DataLine << std::endl;
+				}
 			}
 
 			MyFile.close();
@@ -280,6 +284,26 @@ public:
 			 _Mode = enMode::UpdateMode;
 			 return enSaveResults::svSucceeded;
 		 }
+	}
+
+	bool Delete()
+	{
+		std::vector <clsBankClient> vClients = _LoadClientsDataFromFile();
+
+		for (clsBankClient& Client : vClients)
+		{
+			if (Client.AccountNumber() == AccountNumber())
+			{
+				Client._MarkForDelete = true;
+				break;
+			}
+		}
+
+		_SaveClientsDataToFile(vClients);
+
+		*this = _GetEmptyClientObject();
+
+		return true;
 	}
 };
 
