@@ -305,5 +305,10 @@ public:
 
 		return true;
 	}
+
+	static std::vector <clsBankClient> GetClientsList()
+	{
+		return _LoadClientsDataFromFile();
+	}
 };
 
