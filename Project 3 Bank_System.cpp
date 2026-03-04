@@ -7,6 +7,7 @@
 #include "clsBankClient.h"
 #include "clsInputValidate.h"
 #include "ClsUtil.h"
+#include "clsMainScreen.h"
 
 void ReadClientInfo(clsBankClient& Client)
 {
@@ -212,7 +213,9 @@ void ShowTotalBalances()
 
 int main()
 {
-	ShowTotalBalances();
+	clsMainScreen Main;
+
+	Main.ShowMainMenu();
 
 	system("pause>0");
 	return 0;
