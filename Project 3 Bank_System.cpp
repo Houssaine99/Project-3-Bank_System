@@ -136,44 +136,6 @@ void DeleteClient()
 
 }
 
-void PrintClientRecordLine(clsBankClient Client)
-{
-	std::cout << "| " << std::left << std::setw(15) << Client.AccountNumber();
-	std::cout << "| " << std::left << std::setw(25) << Client.FullName();
-	std::cout << "| " << std::left << std::setw(12) << Client.Phone;
-	std::cout << "| " << std::left << std::setw(30) << Client.Email;
-	std::cout << "| " << std::left << std::setw(10) << Client.PINCode;
-	std::cout << "| " << std::left << std::setw(12) << Client.AccountBalance << std::left << std::setw(1) << "|" << std::endl;
-}
-
-void ShowClientsList()
-{
-	std::vector <clsBankClient> vClients = clsBankClient::GetClientsList();
-
-	std::cout << std::endl << std::string(5, '\t') << "Clients List: (" << vClients.size() << ") Clients" << std::endl;
-	std::cout << std::string(117, '-') << std::endl;
-
-	std::cout << "| " << std::left << std::setw(15) << "Account Number";
-	std::cout << "| " << std::left << std::setw(25) << "Client Name";
-	std::cout << "| " << std::left << std::setw(12) << "Phone";
-	std::cout << "| " << std::left << std::setw(30) << "Email";
-	std::cout << "| " << std::left << std::setw(10) << "PIN Code";
-	std::cout << "| " << std::left << std::setw(12) << "Balance" << std::left << std::setw(1) << "|" << std::endl;
-	std::cout << std::string(117, '-') << std::endl;
-
-	if (vClients.size() == 0)
-	{
-		std::cout << "| " << std::string(4, '\t') << "No Clients Available In the System!" << std::right << std::setw(50) << "|" << std::endl;
-	}
-	else
-	{
-		for (clsBankClient& Client : vClients)
-			PrintClientRecordLine(Client);
-	}
-
-	std::cout << std::string(117, '-') << std::endl;
-}
-
 void PrintClientRecordBalanceLine(clsBankClient Client)
 {
 	std::cout << "| " << std::left << std::setw(25) << Client.AccountNumber();

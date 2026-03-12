@@ -6,6 +6,7 @@
 
 #include "clsScreen.h"
 #include "clsInputValidate.h"
+#include "clsClientListScreen.h";
 
 
 class clsMainScreen : protected clsScreen
@@ -36,7 +37,7 @@ private:
 
     static void _ShowAllClientsList()
     {
-        std::cout << "\nClient List Screen Will be here...\n";
+        clsClientListScreen::ShowClientsList();
     }
 
     static void _ShowAddNewClientScreen()
@@ -131,7 +132,7 @@ public:
 	static void ShowMainMenu()
 	{
 		system("cls");
-		_DrawScreenHeader("Main Screen");
+		_DrawScreenHeader("\t\tMain Screen");
 
         std::cout << std::setw(37) << std::left << "" << "===========================================\n";
         std::cout << std::setw(37) << std::right << "" << std::string(3, '\t') << "Main Menu\n";
@@ -143,7 +144,7 @@ public:
         std::cout << std::setw(37) << std::left << "" << "\t[5] Find Client.\n";
         std::cout << std::setw(37) << std::left << "" << "\t[6] Transactions.\n";
         std::cout << std::setw(37) << std::left << "" << "\t[7] Manage Users.\n";
-        std::cout << std::setw(37) << std::left << "" << "\t[8] Logout.\n";
+        std::cout << std::setw(37) << std::left << "" << "\t[8] Log out.\n";
         std::cout << std::setw(37) << std::left << "" << "===========================================\n";
         _PerformMainMenuOptions((enMainMenuOptions)_ReadMainMenuOption());
 	}
