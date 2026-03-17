@@ -9,27 +9,6 @@
 #include "ClsUtil.h"
 #include "clsMainScreen.h"
 
-void ReadClientInfo(clsBankClient& Client)
-{
-	std::cout << "\nEnter Client First Name: ";
-	Client.FirstName = clsInputValidate::ReadString();
-	
-	std::cout << "\nEnter Client Last Name: ";
-	Client.LastName = clsInputValidate::ReadString();
-
-	std::cout << "\nEnter Client Email: ";
-	Client.Email = clsInputValidate::ReadString();
-
-	std::cout << "\nEnter Client Phone: ";
-	Client.Phone = clsInputValidate::ReadString();
-
-	std::cout << "\nEnter Client PINCode: ";
-	Client.PINCode = clsInputValidate::ReadString();
-
-	std::cout << "\nEnter Client Account Balance? ";
-	Client.AccountBalance = clsInputValidate::ReadFltNumber();
-}
-
 void UpdateClient()
 {
 	std::string AccountNumber;
@@ -44,12 +23,12 @@ void UpdateClient()
 	}
 
 	clsBankClient Client = clsBankClient::Find(AccountNumber);
-	Client.Print();
+	//Client.Print();
 
 	std::cout << "\nUpdate The Client Info:";
 	std::cout << "\n-----------------------\n";
 
-	ReadClientInfo(Client);
+	//ReadClientInfo(Client);
 
 	clsBankClient::enSaveResults SaveResults = Client.Save();
 
@@ -57,7 +36,7 @@ void UpdateClient()
 	{
 	case clsBankClient::enSaveResults::svSucceeded:
 		std::cout << "\nUpdates Saved Successfully.\n";
-		Client.Print();
+		//Client.Print();
 		break;
 
 	case clsBankClient::enSaveResults::svFaildEmptyObject:
@@ -66,41 +45,6 @@ void UpdateClient()
 	}
 }
 
-void AddNewClient()
-{
-	std::string AccountNumber;
-
-	std::cout << "\nPlease Account Number: ";
-	AccountNumber = clsInputValidate::ReadString();
-
-	while (clsBankClient::IsClientExists(AccountNumber))
-	{
-		std::cout << "\Account Number is Already Exist! Enter Another One: ";
-		AccountNumber = clsInputValidate::ReadString();
-	}
-
-	clsBankClient NewClient = clsBankClient::GetAddNewClientObject(AccountNumber);
-
-	ReadClientInfo(NewClient);
-
-	clsBankClient::enSaveResults SaveResults = NewClient.Save();
-
-	switch (SaveResults)
-	{
-	case clsBankClient::enSaveResults::svSucceeded:
-		std::cout << "\nClient Saved Successfully.\n";
-		NewClient.Print();
-		break;
-
-	case clsBankClient::enSaveResults::svFaildEmptyObject:
-		std::cout << "\nError! Client is Not Saved.\n";
-		break;
-
-	case clsBankClient::enSaveResults::svFaildAccountNumberExist:
-		std::cout << "\nError! Client is Already exist.\n";
-		break;
-	}
-}
 
 void DeleteClient()
 {
@@ -116,7 +60,7 @@ void DeleteClient()
 	}
 
 	clsBankClient Client = clsBankClient::Find(AccountNumber);
-	Client.Print();
+	//Client.Print();
 
 	char Answer;
 
@@ -128,7 +72,7 @@ void DeleteClient()
 		if (Client.Delete())
 		{
 			std::cout << "\nClient Deleted Succssefully.\n";
-			Client.Print();
+			//Client.Print();
 		}
 		else
 			std::cout << "\nFaild To Delete Client!\n";

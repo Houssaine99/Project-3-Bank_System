@@ -180,21 +180,7 @@ public:
 
 	__declspec(property(get = GetAccountBlance, put = SetAccountBalance)) float AccountBalance;
 
-	void Print()
-	{
-		std::cout << "\nClient Card:";
-		std::cout << "\n___________________";
-		std::cout << "\nFirstName   : " << FirstName;
-		std::cout << "\nLastName    : " << LastName;
-		std::cout << "\nFull Name   : " << FullName();
-		std::cout << "\nEmail       : " << Email;
-		std::cout << "\nPhone       : " << Phone;
-		std::cout << "\nAcc. Number : " << _AccountNumber;
-		std::cout << "\nPassword    : " << _PINCode;
-		std::cout << "\nBalance     : " << _AccountBalance;
-		std::cout << "\n___________________\n";
-	}
-
+	
 	static clsBankClient Find(std::string AccountNumber)
 	{
 		std::fstream MyFile;

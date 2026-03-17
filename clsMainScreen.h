@@ -6,7 +6,8 @@
 
 #include "clsScreen.h"
 #include "clsInputValidate.h"
-#include "clsClientListScreen.h";
+#include "clsClientListScreen.h"
+#include "clsAddNewClientscreen.h"
 
 
 class clsMainScreen : protected clsScreen
@@ -27,9 +28,9 @@ private:
         return Choice;
     }
 
-    static  void _GoBackToMainMenue()
+    static  void _GoBackToMainMenu()
     {
-        std::cout << std::setw(37) << std::left << "" << "\n\tPress any key to go back to Main Menue...\n";
+        std::cout << std::setw(37) << std::left << "" << "\n\tPress any key to go back to Main Menu...\n";
 
         system("pause>0");
         ShowMainMenu();
@@ -42,7 +43,7 @@ private:
 
     static void _ShowAddNewClientScreen()
     {
-        std::cout << "\nAdd New Client Screen Will be here...\n";
+        clsAddNewClientscreen::ShowAddNewClientScreen();
     }
 
     static void _ShowDeleteClientScreen()
@@ -82,31 +83,31 @@ private:
         case enMainMenuOptions::eListClients:
             system("cls");
             _ShowAllClientsList();
-            _GoBackToMainMenue();
+            _GoBackToMainMenu();
             break;
 
         case enMainMenuOptions::eAddNewClient:
             system("cls");
             _ShowAddNewClientScreen();
-            _GoBackToMainMenue();
+            _GoBackToMainMenu();
             break;
 
         case enMainMenuOptions::eDeleteClient:
             system("cls");
             _ShowDeleteClientScreen();
-            _GoBackToMainMenue();
+            _GoBackToMainMenu();
             break;
 
         case enMainMenuOptions::eUpdateClient:
             system("cls");
             _ShowUpdateClientScreen();
-            _GoBackToMainMenue();
+            _GoBackToMainMenu();
             break;
 
         case enMainMenuOptions::eFindClient:
             system("cls");
             _ShowFindClientScreen();
-            _GoBackToMainMenue();
+            _GoBackToMainMenu();
             break;
 
         case enMainMenuOptions::eShowTransactionsMenu:
