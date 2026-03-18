@@ -11,6 +11,7 @@
 #include "clsDeleteClientScreen.h"
 #include "clsUpdateClientScreen.h"
 #include "clsFindClientScreen.h"
+#include "clsTransactionsScreen.h"
 
 
 class clsMainScreen : protected clsScreen
@@ -26,7 +27,7 @@ private:
         short Choice = 0;
 
         std::cout << std::setw(37) << std::left << "" << "Choose What Do You Want To Do [1 to 8]? ";
-        Choice = clsInputValidate::ReadIntNumberBetween(1, 8, "Enter Number between 1 to 8? ");
+        Choice = clsInputValidate::ReadIntNumberBetween(1, 8, "Enter Number between 1 and 8? ");
 
         return Choice;
     }
@@ -66,7 +67,7 @@ private:
 
     static void _ShowTransactionMenu()
     {
-        std::cout << "\nTransactions Menu Screen Will be here...\n";
+        clsTransactionsScreen::ShowTransactionsMenu();
     }
 
     static void _ShowManageUsersMenu()
@@ -116,11 +117,13 @@ private:
         case enMainMenuOptions::eShowTransactionsMenu:
             system("cls");
             _ShowTransactionMenu();
+            ShowMainMenu();
             break;
 
         case enMainMenuOptions::eManageUsers:
             system("cls");
             _ShowManageUsersMenu();
+            _GoBackToMainMenu();
             break;
 
         case enMainMenuOptions::eExit:
