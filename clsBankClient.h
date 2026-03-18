@@ -309,5 +309,17 @@ public:
 
 		return TotalBalances;
 	}
+
+	void Deposit(double Amount)
+	{
+		_AccountBalance += Amount;
+		Save();
+	}
+
+	void Withdraw(double Amount)
+	{
+		_AccountBalance -= Amount;
+		Save();
+	}
 };
 
