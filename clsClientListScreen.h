@@ -45,7 +45,7 @@ public:
 
 		if (vClients.size() == 0)
 		{
-			std::cout << std::setw(2) << std::left << "" << "| " << std::string(4, '\t') << "No Clients Available In the System!" << std::right << std::setw(50) << "|" << std::endl;
+			std::cout << std::setw(2) << std::left << "" << "| " << std::string(4, '\t') << "No Clients Available In the System!" << std::right << std::setw(52) << "|" << std::endl;
 		}
 		else
 		{

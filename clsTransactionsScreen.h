@@ -8,6 +8,7 @@
 #include "clsInputValidate.h"
 #include "clsDepositScreen.h"
 #include "clsWithdrawScreen.h"
+#include "clsTotalBalancesScreen.h"
 
 class clsTransactionsScreen : protected clsScreen
 {
@@ -36,12 +37,12 @@ private:
 
 	static void _ShowTotalBalances()
 	{
-		std::cout << "\n Total Balances Screen will be here.\n";
+		clsTotalBalancesScreen::ShowTotalBalancesScreen();
 	}
 
 	static void _GoBackToTransactionMenu()
 	{
-		std::cout << "\n\nPress any key to go back to Transactions Menue...";
+		std::cout << "\n\nPress any key to go back to Transactions Menu...";
 		system("pause>0");
 		ShowTransactionsMenu();
 	}
