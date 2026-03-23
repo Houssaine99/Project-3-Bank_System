@@ -7,6 +7,7 @@
 #include "clsScreen.h"
 #include "clsBankClient.h"
 #include "clsInputValidate.h"
+#include "clsListUsersScreen.h"
 
 class clsManageUsersScreen : protected clsScreen
 {
@@ -26,7 +27,7 @@ private:
 
     static void _GoBackToManageUsersMenu()
     {
-        std::cout << std::setw(37) << std::left << "" << "\n\tPress any key to go back to Main Menu...\n";
+        std::cout << std::setw(37) << std::left << "" << "\n\tPress any key to go back to Manage Users Menu...\n";
 
         system("pause>0");
         ShowManageUsersMenu();
@@ -34,7 +35,7 @@ private:
 
     static void _ShowListUsersScreen()
     {
-        std::cout << "\nList users screen will be here\n";
+        clsListUsersScreen::ShowUsersList();
     }
 
     static void _ShowAddNewUserScreen()
