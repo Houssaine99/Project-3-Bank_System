@@ -59,7 +59,7 @@ public:
 
 		while (!clsBankClient::IsClientExists(AccountNumber))
 		{
-			std::cout << "\Account Number is NOT Found! Enter Another One: ";
+			std::cout << "\nAccount Number is NOT Found! Enter Another One: ";
 			AccountNumber = clsInputValidate::ReadString();
 		}
 

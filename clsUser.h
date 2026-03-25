@@ -96,7 +96,7 @@ private:
 	static void _AddDataLineToFile(std::string DataLine)
 	{
 		std::fstream File;
-		File.open("Users.txt", std::ios::out || std::ios::app);
+		File.open("Users.txt", std::ios::out | std::ios::app);
 
 		if (File.is_open())
 		{
@@ -137,6 +137,9 @@ public:
 		_Password = Password;
 		_Permissions = Permissions;
 	}
+
+	enum enPermissions { eAll = -1, pListClient = 1, pAddNewClient = 2, pDeleteClient = 4,
+	pUpdateClient = 8, pFindClient = 16, pTransactions = 32, pManageUsers = 64 };
 
 	bool IsEmpty()
 	{
@@ -249,7 +252,7 @@ public:
 		return (!User.IsEmpty());
 	}
 
-	enum enSaveResults { svFaildEmptyObject = 0, svSucceeded = 1, svFaildAccountNumberExist = 2 };
+	enum enSaveResults { svFaildEmptyObject = 0, svSucceeded = 1, svFaildUsernameExist = 2 };
 
 	enSaveResults Save()
 	{
@@ -264,7 +267,7 @@ public:
 
 		case enMode::AddNewMode:
 			if (IsUserExist(_UserName))
-				return svFaildAccountNumberExist;
+				return svFaildUsernameExist;
 
 			_AddNew();
 			_Mode = enMode::UpdateMode;
@@ -280,7 +283,7 @@ public:
 		{
 			if (User.UserName == UserName)
 			{
-				User._MarkForDelete == true;
+				User._MarkForDelete = true;
 				break;
 			}
 		}

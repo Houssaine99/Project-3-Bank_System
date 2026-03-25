@@ -5,9 +5,12 @@
 #include <iomanip>
 
 #include "clsScreen.h"
-#include "clsBankClient.h"
 #include "clsInputValidate.h"
 #include "clsListUsersScreen.h"
+#include "clsAddNewUserScreen.h"
+#include "clsDeleteUserScreen.h"
+#include "clsUpdateUserScreen.h"
+#include "clsFindUserScreen.h"
 
 class clsManageUsersScreen : protected clsScreen
 {
@@ -40,22 +43,22 @@ private:
 
     static void _ShowAddNewUserScreen()
     {
-        std::cout << "\nAdd new user screen will be here\n";
+        clsAddNewUserScreen::ShowAddNewUserScreen();
     }
 
     static void _ShowDeleteUserScreen()
     {
-        std::cout << "\nDelete user screen will be here\n";
+        clsDeleteUserScreen::ShowDeleteUserScreen();
     }
 
     static void _ShowUpdateUserScreen()
     {
-        std::cout << "\nUpdate user screen will be here\n";
+        clsUpdateUserScreen::ShowUpdateUserScreen();
     }
 
     static void _ShowFindUserScreen()
     {
-        std::cout << "\nFind user screen will be here\n";
+        clsFindUserScreen::ShowFindUserScreen();
     }
 
     static void _PerformManageUsersMenuOptions(enManageUsersMenuOptions ManageUsersMenuOptions)
