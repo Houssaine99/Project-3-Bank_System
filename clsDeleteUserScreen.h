@@ -40,7 +40,7 @@ public:
 
 		while (!clsUser::IsUserExist(Username))
 		{
-			std::cout << "\nAccount Number is NOT Found! Enter Another One: ";
+			std::cout << "\nUsername is NOT Found! Enter Another One: ";
 			Username = clsInputValidate::ReadString();
 		}
 
