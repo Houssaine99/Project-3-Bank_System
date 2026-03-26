@@ -13,7 +13,6 @@
 #include "clsFindClientScreen.h"
 #include "clsTransactionsScreen.h"
 #include "clsManageUsersScreen.h"
-#include "Global.h"
 
 
 class clsMainScreen : protected clsScreen
@@ -119,13 +118,13 @@ private:
         case enMainMenuOptions::eShowTransactionsMenu:
             system("cls");
             _ShowTransactionMenu();
-            ShowMainMenu();
+            _GoBackToMainMenu();
             break;
 
         case enMainMenuOptions::eManageUsers:
             system("cls");
             _ShowManageUsersMenu();
-            ShowMainMenu();
+            _GoBackToMainMenu();
             break;
 
         case enMainMenuOptions::eExit:

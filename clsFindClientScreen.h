@@ -30,6 +30,9 @@ public:
 
 	static void ShowFindClientScreen()
 	{
+		if (!_CheckAccessRights(clsUser::enPermissions::pFindClient))
+			return;
+
 		std::string AccountNumber;
 
 		_DrawScreenHeader("\tFind Client Screen");
@@ -56,4 +59,5 @@ public:
 		_PrintClient(Client);
 	}
 };
+
 

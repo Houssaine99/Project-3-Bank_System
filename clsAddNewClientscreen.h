@@ -8,7 +8,6 @@
 #include "clsInputValidate.h"
 #include "clsBankClient.h"
 
-
 class clsAddNewClientscreen : protected clsScreen
 {
 private:
@@ -53,6 +52,9 @@ public:
 
 	static void ShowAddNewClientScreen()
 	{
+		if (!_CheckAccessRights(clsUser::enPermissions::pAddNewClient))
+			return;
+
 		_DrawScreenHeader("\t  Add New Client Screen");
 
 		std::string AccountNumber;

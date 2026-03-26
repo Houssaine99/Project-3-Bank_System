@@ -50,6 +50,9 @@ public:
 
 	static void ShowUpdateClientScreen()
 	{
+		if (!_CheckAccessRights(clsUser::enPermissions::pUpdateClient))
+			return;
+
 		std::string AccountNumber;
 
 		_DrawScreenHeader("\tUpdate Client Screen");
