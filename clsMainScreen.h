@@ -13,6 +13,7 @@
 #include "clsFindClientScreen.h"
 #include "clsTransactionsScreen.h"
 #include "clsManageUsersScreen.h"
+#include "Global.h"
 
 
 class clsMainScreen : protected clsScreen
@@ -76,9 +77,9 @@ private:
         clsManageUsersScreen::ShowManageUsersMenu();
     }
 
-    static void _ShowEndScreen()
+    static void _Logout()
     {
-        std::cout << "\nEnd Screen Will be here...\n";
+        CurrentUser = clsUser::Find("", "");
     }
 
     static void _PerformMainMenuOptions(enMainMenuOptions Option)
@@ -129,7 +130,7 @@ private:
 
         case enMainMenuOptions::eExit:
             system("cls");
-            _ShowEndScreen();
+            _Logout();
             break;
             
         }
@@ -152,7 +153,7 @@ public:
         std::cout << std::setw(37) << std::left << "" << "\t[5] Find Client.\n";
         std::cout << std::setw(37) << std::left << "" << "\t[6] Transactions.\n";
         std::cout << std::setw(37) << std::left << "" << "\t[7] Manage Users.\n";
-        std::cout << std::setw(37) << std::left << "" << "\t[8] Log out.\n";
+        std::cout << std::setw(37) << std::left << "" << "\t[8] Logout.\n";
         std::cout << std::setw(37) << std::left << "" << "===========================================\n";
         _PerformMainMenuOptions((enMainMenuOptions)_ReadMainMenuOption());
 	}
