@@ -4,6 +4,7 @@
 #include <string>
 
 #include "clsUser.h"
+#include "clsDate.h"
 #include "Global.h"
 
 
@@ -22,19 +23,20 @@ protected:
         }
 
         std::cout << "\n" << std::string(5, '\t') << "______________________________________\n\n";
+    
+        std::cout << std::string(5, '\t') << "User: " << CurrentUser.UserName << std::endl;
+        std::cout << std::string(5, '\t') << "Date:" << clsDate::DateToString(clsDate()) << "\n\n";
     }
 
-    static bool _CheckAccessRights(clsUser::enPermissions Permission)
+    static bool _CheckAccessRights(clsUser::enPermissions Permissions)
     {
-        if (!CurrentUser.CheckAccessPermissions(Permission))
+        if (!CurrentUser.CheckAccessPermissions(Permissions))
         {
-            _DrawScreenHeader("Access Denied! Contact your Admin.");
+            _DrawScreenHeader("Access Denied! Contact You Admin.");
             return false;
         }
         else
             return true;
-
-
     }
 
 };

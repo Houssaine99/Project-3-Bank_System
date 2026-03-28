@@ -27,7 +27,7 @@ public:
 
 	static void ShowClientsList()
 	{
-		if (!_CheckAccessRights(clsUser::enPermissions::pListClient))
+		if (!_CheckAccessRights(clsUser::enPermissions::eAll))
 			return;
 
 		
