@@ -20,6 +20,21 @@ private:
 	std::string _Password;
 	int _Permissions = 0;
 	bool _MarkForDelete = false;
+	struct stLoginRegisterRecord;
+
+	static stLoginRegisterRecord _ConvertLoginRegisterLineToRecord(std::string DataLine, std::string Seperator = "#//#")
+	{
+		stLoginRegisterRecord LoginRegisterRecord;
+
+		std::vector <std::string> vLoginRegister = clsString::Split(DataLine, Seperator);
+
+		LoginRegisterRecord.DateTime = vLoginRegister.at(0);
+		LoginRegisterRecord.Username = vLoginRegister.at(1);
+		LoginRegisterRecord.Password = vLoginRegister.at(2);
+		LoginRegisterRecord.Permissions = std::stoi(vLoginRegister.at(3));
+
+		return LoginRegisterRecord;
+	}
 
 	std::string _PrepareLoginRecord(std::string Seperator = "#//#")
 	{
@@ -151,7 +166,15 @@ public:
 	}
 
 	enum enPermissions { eAll = -1, pListClient = 1, pAddNewClient = 2, pDeleteClient = 4,
-	pUpdateClient = 8, pFindClient = 16, pTransactions = 32, pManageUsers = 64 };
+	pUpdateClient = 8, pFindClient = 16, pTransactions = 32, pManageUsers = 64, pLoginRegister = 128 };
+
+	struct stLoginRegisterRecord
+	{
+		std::string Username;
+		std::string Password;
+		std::string DateTime;
+		int Permissions;
+	};
 
 	bool IsEmpty()
 	{
@@ -338,6 +361,27 @@ public:
 			File << DataLine << std::endl;
 			File.close();
 		}
+	}
+
+	static std::vector <stLoginRegisterRecord> GetLoginRegisterList()
+	{
+		std::vector <stLoginRegisterRecord> vLoginRegisterRecords;
+		std::fstream File;
+		File.open("LoginRegister.txt", std::ios::in);
+
+		if (File.is_open())
+		{
+			std::string Line;
+			stLoginRegisterRecord Record;
+			while (std::getline(File, Line))
+			{
+				Record = _ConvertLoginRegisterLineToRecord(Line);
+				vLoginRegisterRecords.push_back(Record);
+			}
+			File.close();
+		}
+
+		return vLoginRegisterRecords;
 	}
 };
 

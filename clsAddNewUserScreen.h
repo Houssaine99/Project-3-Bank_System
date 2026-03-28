@@ -103,6 +103,12 @@ private:
 		if (toupper(Answer) == 'Y')
 			Permissions += clsUser::enPermissions::pManageUsers;
 
+		std::cout << "\nLogin Register y/n? ";
+		std::cin >> Answer;
+
+		if (toupper(Answer) == 'Y')
+			Permissions += clsUser::enPermissions::pLoginRegister;
+
 		return Permissions;
 	}
 
