@@ -110,6 +110,20 @@ public:
 		return clsDate(Day, Month, Year);
 	}
 
+	static std::string GetSystemDateTimeString()
+	{
+		time_t t = time(0);
+		tm* now = localtime(&t);
+		std::string Date = DateToString(clsDate());
+		short Hour, Minute, Second;
+
+		Hour = now->tm_hour;
+		Minute = now->tm_min;
+		Second = now->tm_sec;
+
+		return Date + " - " + std::to_string(Hour) + ":" + std::to_string(Minute) + ":" + std::to_string(Second);
+	}
+
 	static bool IsValideDate(clsDate Date)
 	{
 		if (Date.Day < 1 || Date.Day > 31)
