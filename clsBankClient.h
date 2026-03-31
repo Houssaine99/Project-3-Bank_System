@@ -20,6 +20,23 @@ private:
 	std::string _PINCode;
 	float _AccountBalance;
 	bool _MarkForDelete = false;
+	struct stTransferLogRecord;
+
+	static stTransferLogRecord _ConvertTransferLogLineToRecord(std::string Line, std::string Seperator = "#//#")
+	{
+		stTransferLogRecord TransferLogRecord;
+		std::vector <std::string> vTransferLog = clsString::Split(Line, Seperator);
+
+		TransferLogRecord.DateTime = vTransferLog.at(0);
+		TransferLogRecord.SourceClientAccNumber = vTransferLog.at(1);
+		TransferLogRecord.DestinationClientAccNumber = vTransferLog.at(2);
+		TransferLogRecord.Amount = std::stod(vTransferLog.at(3));
+		TransferLogRecord.SourceClientAccBalance = std::stod(vTransferLog.at(4));
+		TransferLogRecord.DestinationClientAccBalance = std::stod(vTransferLog.at(5));
+		TransferLogRecord.Username = vTransferLog.at(6);
+
+		return TransferLogRecord;
+	}
 
 	static clsBankClient _ConvertLineToClientObject(std::string Line, std::string Seperator = "#//#")
 	{
@@ -172,6 +189,17 @@ public:
 		_PINCode = PINCode;
 		_AccountBalance = AccountBalance;
 	}
+
+	struct stTransferLogRecord
+	{
+		std::string DateTime;
+		std::string SourceClientAccNumber;
+		std::string DestinationClientAccNumber;
+		double Amount = 0;
+		double SourceClientAccBalance = 0;
+		double DestinationClientAccBalance = 0;
+		std::string Username;
+	};
 
 	bool IsEmpty()
 	{
@@ -366,6 +394,28 @@ public:
 		DestinationClient.Deposit(Amount);
 		_RegisterTransferLog(Amount, DestinationClient, Username);
 		return true;
+	}
+
+	static std::vector <stTransferLogRecord> GetTransferLogList()
+	{
+		std::vector <stTransferLogRecord> vTransferLog;
+		std::fstream File;
+		File.open("TransferLog.txt", std::ios::in);
+
+		if (File.is_open())
+		{
+			std::string Line;
+			stTransferLogRecord Record;
+
+			while (std::getline(File, Line))
+			{
+				Record = _ConvertTransferLogLineToRecord(Line);
+				vTransferLog.push_back(Record);
+			}
+			File.close();
+		}
+
+		return vTransferLog;
 	}
 };
 
