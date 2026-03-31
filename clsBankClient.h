@@ -7,6 +7,7 @@
 
 #include "clsPerson.h"
 #include "clsString.h"
+#include "clsDate.h"
 
 
 class clsBankClient : public clsPerson
@@ -130,6 +131,34 @@ private:
 	void _AddNew()
 	{
 		_AddDataLineToFile(_ConvertClientObjectToLine(*this));
+	}
+
+	std::string _PrepareTransferLogRecord(double Amount, clsBankClient& DestinationClient, std::string Username, std::string Seperator = "#//#")
+	{
+		std::string RecordLine;
+
+		RecordLine += clsDate::GetSystemDateTimeString() + Seperator;
+		RecordLine += AccountNumber() + Seperator;
+		RecordLine += DestinationClient.AccountNumber() + Seperator;
+		RecordLine += std::to_string(Amount) + Seperator;
+		RecordLine += std::to_string(AccountBalance) + Seperator;
+		RecordLine += std::to_string(DestinationClient.AccountBalance) + Seperator;
+		RecordLine += Username;
+
+		return RecordLine;
+	}
+
+	void _RegisterTransferLog(double Amount, clsBankClient& DestinationClient, std::string Username)
+	{
+		std::string DataLine = _PrepareTransferLogRecord(Amount, DestinationClient, Username);
+		std::fstream File;
+		File.open("TransferLog.txt", std::ios::out | std::ios::app);
+
+		if (File.is_open())
+		{
+			File << DataLine << std::endl;
+			File.close();
+		}
 	}
 
 public:
@@ -328,13 +357,14 @@ public:
 		}
 	}
 
-	bool Transfer(double Amount, clsBankClient& DestinationClient)
+	bool Transfer(double Amount, clsBankClient& DestinationClient, std::string Username)
 	{
 		if (Amount > AccountBalance)
 			return false;
 		
 		Withdraw(Amount);
 		DestinationClient.Deposit(Amount);
+		_RegisterTransferLog(Amount, DestinationClient, Username);
 		return true;
 	}
 };

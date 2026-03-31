@@ -31,12 +31,12 @@ private:
 		return AccountNumber;
 	}
 
-	static double _ReadAmount(clsBankClient& DestinationClient)
+	static double _ReadAmount(clsBankClient& SourceClient)
 	{
 		std::cout << "\nEnter Transfer Amount? ";
 		double Amount = clsInputValidate::ReadDblNumber();
 
-		while (Amount > DestinationClient.AccountBalance)
+		while (Amount > SourceClient.AccountBalance)
 		{
 			std::cout << "\nAmount Exceeds Available Balance! Enter Another Amount? ";
 			Amount = clsInputValidate::ReadDblNumber();
@@ -59,7 +59,7 @@ public:
 		clsBankClient DestinationClient = clsBankClient::Find(_ReadAccountNumber());
 		_PrintClient(DestinationClient);
 
-		double Amount = _ReadAmount(DestinationClient);
+		double Amount = _ReadAmount(SourceClient);
 
 		char Answer = 'Y';
 		std::cout << "\nAre You Sure You Want To Perform This Operation (y/n)? ";
@@ -67,7 +67,7 @@ public:
 
 		if (Answer == 'Y' || Answer == 'y')
 		{
-			if (SourceClient.Transfer(Amount, DestinationClient))
+			if (SourceClient.Transfer(Amount, DestinationClient, CurrentUser.UserName))
 			{
 				std::cout << "\nTransfer Done Successfully.\n";
 				_PrintClient(SourceClient);
