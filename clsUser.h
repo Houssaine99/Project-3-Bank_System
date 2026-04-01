@@ -8,7 +8,7 @@
 #include "clsPerson.h"
 #include "clsString.h"
 #include "clsDate.h"
-
+#include "clsUtil.h"
 class clsUser : public clsPerson
 {
 private:
@@ -30,7 +30,7 @@ private:
 
 		LoginRegisterRecord.DateTime = vLoginRegister.at(0);
 		LoginRegisterRecord.Username = vLoginRegister.at(1);
-		LoginRegisterRecord.Password = vLoginRegister.at(2);
+		LoginRegisterRecord.Password = clsUtil::DecryptText(vLoginRegister.at(2));
 		LoginRegisterRecord.Permissions = std::stoi(vLoginRegister.at(3));
 
 		return LoginRegisterRecord;
@@ -41,7 +41,7 @@ private:
 		std::string LoginRecord;
 		LoginRecord += clsDate::GetSystemDateTimeString() + Seperator;
 		LoginRecord += UserName + Seperator;
-		LoginRecord += Password + Seperator;
+		LoginRecord += clsUtil::EncryptText(Password) + Seperator;
 		LoginRecord += std::to_string(Permissions);
 
 		return LoginRecord;
@@ -52,7 +52,7 @@ private:
 		std::vector <std::string> vUserData = clsString::Split(Line, Seperator);
 		
 		return clsUser(enMode::UpdateMode, vUserData.at(0), vUserData.at(1), vUserData.at(2), vUserData.at(3),
-			vUserData.at(4), vUserData.at(5), std::stoi(vUserData.at(6)));
+			vUserData.at(4), clsUtil::DecryptText(vUserData.at(5)), std::stoi(vUserData.at(6)));
 	}
 
 	static std::string _ConvertUserObjectToLine(clsUser User, std::string Seperator = "#//#")
@@ -64,7 +64,7 @@ private:
 		Line += User.Email + Seperator;
 		Line += User.Phone + Seperator;
 		Line += User.UserName + Seperator;
-		Line += User.Password + Seperator;
+		Line += clsUtil::EncryptText(User.Password) + Seperator;
 		Line += std::to_string(User.Permissions);
 
 		return Line;

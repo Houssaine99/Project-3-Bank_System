@@ -257,7 +257,7 @@ public:
 		return Word;
 	}
 
-	static std::string EncryptText(std::string Text, short EncryptionKey)
+	static std::string EncryptText(std::string Text, short EncryptionKey = 5)
 	{
 		for (int i = 0; i < Text.length(); i++)
 		{
@@ -268,7 +268,7 @@ public:
 		return Text;
 	}
 
-	static std::string DecryptText(std::string Text, short EncryptionKey)
+	static std::string DecryptText(std::string Text, short EncryptionKey = 5)
 	{
 		for (int i = 0; i < Text.length(); i++)
 		{

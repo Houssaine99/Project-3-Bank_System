@@ -8,6 +8,7 @@
 #include "clsPerson.h"
 #include "clsString.h"
 #include "clsDate.h"
+#include "clsUtil.h"
 
 
 class clsBankClient : public clsPerson
@@ -43,7 +44,7 @@ private:
 		std::vector <std::string> vSplitedLine = clsString::Split(Line, Seperator);
 
 		return clsBankClient(enMode::UpdateMode, vSplitedLine[0], vSplitedLine[1], vSplitedLine[2], vSplitedLine[3],
-			vSplitedLine[4], vSplitedLine[5], std::stof(vSplitedLine[6]));
+			vSplitedLine[4], clsUtil::DecryptText(vSplitedLine[5]), std::stof(vSplitedLine[6]));
 
 	}
 
@@ -56,7 +57,7 @@ private:
 		ClientRecord += Client.Email + Seperator;
 		ClientRecord += Client.Phone + Seperator;
 		ClientRecord += Client.AccountNumber() + Seperator;
-		ClientRecord += Client.PINCode + Seperator;
+		ClientRecord += clsUtil::EncryptText(Client.PINCode) + Seperator;
 		ClientRecord += std::to_string(Client.AccountBalance);
 
 		return ClientRecord;
