@@ -7,6 +7,7 @@
 #include "clsScreen.h"
 #include "clsCurrency.h"
 #include "clsInputValidate.h"
+#include "clsCurrenciesListScreen.h"
 
 class clsCurrencyExchangeScreen : protected clsScreen
 {
@@ -25,17 +26,17 @@ private:
         return Choice;
     }
 
-    static void _ShowListCurrencyScreen()
-    {
-        std::cout << "List Currency Scrren Will Be Here.\n";
-    }
-
     static void _GoBackToCurrencyExchangeMenu()
     {
         std::cout << std::setw(37) << std::left << "" << "\n\tPress any key to go back to currency exchange menu...\n";
 
         system("pause>0");
         ShowCurrencyExchangeScreen();
+    }
+
+    static void _ShowListCurrencyScreen()
+    {
+        clsCurrenciesListScreen::ShowCurrenciesListScreen();
     }
 
     static void _ShowFindCurrencyScreen()
