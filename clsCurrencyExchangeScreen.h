@@ -9,6 +9,7 @@
 #include "clsInputValidate.h"
 #include "clsCurrenciesListScreen.h"
 #include "clsFindCurrencyScreen.h"
+#include "clsUpdateCurrencyRateScreen.h"
 
 class clsCurrencyExchangeScreen : protected clsScreen
 {
@@ -47,8 +48,7 @@ private:
 
     static void _ShowUpdateRateScreen()
     {
-        std::cout << "Update Rate Scrren Will Be Here.\n";
-
+        clsUpdateCurrencyRateScreen::ShowUpdateCurrencyRateScreen();
     }
 
     static void _ShowCurrencyCalculatorScreen()
