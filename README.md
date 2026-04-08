@@ -1,5 +1,16 @@
 # 🏦 Bank Management System (C++)
 
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?size=28&color=007ACC&width=800&lines=Fast+and+Secure+Bank_System;OOP+Based+Console+Project;C%2B%2B+Banking+Operations;User+Friendly+UI" alt="Typing Animation" />
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/C%2B%2B-Solutions-blue?style=for-the-badge&logo=c%2B%2B" alt="C++">
+  <img src="https://img.shields.io/badge/Object--Oriented-Programming-green?style=for-the-badge" alt="OOP">
+  <img src="https://img.shields.io/badge/Security-Basic-yellow?style=for-the-badge" alt="Security">
+  <img src="https://img.shields.io/badge/Logic-Mindset-lightblue?style=for-the-badge" alt="Logic">
+</p>
+
 A console-based Bank Management System built using C++ and Object-Oriented Programming principles.
 This project simulates real-world banking operations such as managing clients, transactions, and user authentication.
 
